@@ -1,0 +1,24 @@
+[
+{
+  "title" : "Haircut",
+  "price" : "29.2$",
+  "location" : "London",
+  "description" : "In London you will get  everything you need",
+  "images" : "url('images/img1.jpg')"
+},
+  {
+  "title" : "MakeUp",
+  "price" : "48.22$",
+  "location" : "Manchester",
+  "description" : "House of MakeUp Manchester is the city's one and only Makeup and Hair boutique, offering everything needed for any occasion",
+  "images" : "url('images/img2.jpg')"
+},
+  {
+  "title" : "Shoes repair",
+  "price" : "99.99$",
+  "location" : "Minsk",
+  "description" : "In Minsk you could buy new shoes or repar old for lowest price",
+  "images" : "url('images/img3.jpg')"
+}
+
+]

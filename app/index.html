@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>service in regions</title>
+    <link rel="stylesheet" href="styles/styles.css"/>
+    <link rel="stylesheet" href="modules/angular/rzslider.min.css">
+    <script src="modules/jquery/dist/jquery.min.js"></script>
+    <script src="modules/angular/angular.js"></script>
+    <script src="modules/angular-mocks/angular-mocks.js"></script>
+    <script src="modules/angular/rzslider.js"></script>
+    <script src="modules/angular-file-upload-master/angular-file-upload.min.js"></script>
+    <script src="scripts/e2e-mocks.js"></script>
+    <script src="scripts/main-controller.js"></script>
+    <!--<script src="scripts/uploadcontroller.js"></script> -->
+</head>
+<body ng-app="MyService" ng-controller="MainController" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+
+<div class="containerfirst">
+    <div class="leftsection">
+        <input type="text" placeholder=" search" id="search" ng-model="search.title"/>
+       <div id="price" style="{font-size: 12px;}"><rzslider rz-slider-model="slider.minValue"
+                                 rz-slider-high="slider.maxValue"
+                                 rz-slider-options="slider.options"></rzslider></div>
+
+        <div class="tablecontainer">
+            <table border="1" cellpadding="0" cellspacing="0" width="452">
+                <tr ng-repeat="item in savedData | filter:myFilter | filter:search" ng-click="info(item)" ng-class="{'activetr' : item.active}">
+                    <!-- | filter:range(slider.minValue, slider.maxValue)-->
+                    <td>{{item.title}}</td>
+                    <td>{{item.price | currency}}</td>
+                    <td>{{item.location}}</td>
+                </tr>
+
+            </table>
+        </div>
+        <button class="button" ng-click="add()">Add new service</button>
+    </div>
+    <div class="rightsection">
+        <div class="addservice" ng-show="activeadd">
+            <h2>Add a Service</h2>
+            <form name="myform" class="mainform">
+                <p><input type="text" placeholder="Title (required)" ng-required="string" ng-minlength="2" ng-maxlength="20" ng-model="record.title" required/></p>
+                <p><input type="number" placeholder="Price (required)" ng-model="record.price" required/></p>
+                <p><input type="text" placeholder="Location (required)" ng-required="string" ng-minlength="2" ng-maxlength="20" ng-model="record.location" required/></p>
+                <p><textarea rows="4" cols="30" type="text" placeholder="Description" ng-model="record.description"></textarea></p>
+                <div ng-show="uploader.isHTML5">
+                    <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
+                        <span id="legend">Drop images here</span>
+                    </div>
+                </div>
+
+                <table class="table" style="width: 300px">
+                    <tbody>
+                    <tr ng-repeat="item in uploader.queue">
+                        <td><strong>{{ item.file.name }}</strong></td>
+                        <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                        <td width="51">
+                            <button type="button" class="remove" ng-click="item.remove()">
+                                 Remove
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <p><button class="button" type="submit" ng-click="save(record)">Save</button></p>
+               <!-- <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                    <span class="glyphicon glyphicon-upload"></span> Upload all
+                </button>-->
+            </form>
+
+
+        </div>
+        <div class="information" ng-show="activeinfo">
+            <h2>{{activeInfo.title}}</h2><p>{{activeInfo.price | currency}}. {{activeInfo.location}}</p>
+            <div class="imgcontainer" ng-show="!!(activeInfo.images !== null)">
+                <img ng-src="{{item}}" alt="photo" ng-repeat="item in activeInfo.images track by $index" class="imgincontainer" height="100%">
+            </div>
+            <p>{{activeInfo.description}}</p>
+        </div>
+
+    </div>
+
+    </div>
+
+    <div class="footer"></div>
+
+</body>
+</html>
